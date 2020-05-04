@@ -1,6 +1,7 @@
 import express,{Application} from "express";
 
 import {MainController} from "./controllers/main.controller";
+import { ClienteController } from "./controllers/cliente.controller";
 
 import bodyParser from "body-parser";
 import cors from "cors";
@@ -14,6 +15,7 @@ config({path: resolve(__dirname, "../.env")});
 class App{
     public app: Application;
     public mainController: MainController;
+    public clienteController: ClienteController;
 
     constructor(){
         this.app = express();
@@ -21,6 +23,7 @@ class App{
         this.setMongoConfig();
         
         this.mainController = new MainController(this.app);
+        this.clienteController = new ClienteController(this.app);
     }
     private setConfig(){
         this.app.use(bodyParser.json({limit:"50mb"}));
