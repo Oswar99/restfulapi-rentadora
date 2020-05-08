@@ -2,35 +2,7 @@ import {Request,Response} from "express";
 import {Sucursal, ISucursal} from "../models/sucursal.model";
 
 import {MongooseDocument} from "mongoose";
-import { Empleado } from "../models/empleado.model";
-
-class sucursalHelpers{
-    getSucursal(filtro:any):Promise<ISucursal>{
-        return new Promise<ISucursal>( (resolve) =>{
-            Sucursal.find(filtro, (err:Error, Sucursal:ISucursal)=>{
-                if(err){
-                    console.log(err.message);
-                }else{
-                    resolve(Sucursal);
-                }
-            });
-        });
-    }
-
-    empleadosPorSucursal(suc: ISucursal):Promise<number>{
-        console.log(suc._id);
-        return new Promise<number>( resolve => {
-            Empleado.aggregate([
-                { "$match": { "Sucursal": suc._id }}
-            ],(err: Error, data: any)=>{
-                if (err){
-                    console.log(err.message);
-                }
-                resolve(data.length);
-            })
-        });
-    }
-};
+import { sucursalHelpers } from "../helpers/sucursal.helpers"
 
 export class SucursalService extends sucursalHelpers{
     public getAll(req: Request, res: Response){

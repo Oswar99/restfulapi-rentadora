@@ -1,20 +1,7 @@
 import {Request,Response} from "express";
 import {Empleado, IEmpleado} from "../models/empleado.model";
+import {EmpleadoHelpers} from "../helpers/empleado.helpers";
 import {MongooseDocument} from "mongoose";
-
-class EmpleadoHelpers{
-    getEmpleado(filtro:any):Promise<IEmpleado>{
-        return new Promise<IEmpleado>( (resolve) =>{
-            Empleado.find(filtro, (err:Error, Empleado:IEmpleado)=>{
-                if(err){
-                    console.log(err.message);
-                }else{
-                    resolve(Empleado);
-                }
-            });
-        });
-    }
-};
 
 export class EmpleadoService extends EmpleadoHelpers{
     public getAll(req: Request, res: Response){

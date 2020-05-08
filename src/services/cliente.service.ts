@@ -1,20 +1,7 @@
 import {Request,Response} from "express";
 import {Cliente, ICliente} from "../models/cliente.model";
+import {ClienteHelpers} from "../helpers/cliente.helpers"
 import {MongooseDocument} from "mongoose";
-
-class ClienteHelpers{
-    getCliente(filtro:any):Promise<ICliente>{
-        return new Promise<ICliente>( (resolve) =>{
-            Cliente.find(filtro, (err:Error, Cliente:ICliente)=>{
-                if(err){
-                    console.log(err.message);
-                }else{
-                    resolve(Cliente);
-                }
-            });
-        });
-    }
-};
 
 export class ClienteService extends ClienteHelpers{
     public getAll(req: Request, res: Response){
