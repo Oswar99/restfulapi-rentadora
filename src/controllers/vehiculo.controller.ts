@@ -1,7 +1,7 @@
 import {Application} from "express";
 import {VehiculoService} from "../services/vehiculo.service";
 
-export class ClienteController{
+export class VehiculoController{
     private vehiculo_service: VehiculoService;
     constructor(private app: Application){
         this.vehiculo_service = new VehiculoService();

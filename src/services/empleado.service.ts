@@ -1,6 +1,7 @@
 import {Request,Response} from "express";
 import {Empleado, IEmpleado} from "../models/empleado.model";
 import {EmpleadoHelpers} from "../helpers/empleado.helpers";
+import {sucursalHelpers} from "../helpers/sucursal.helpers";
 import {MongooseDocument} from "mongoose";
 
 export class EmpleadoService extends EmpleadoHelpers{
@@ -17,10 +18,13 @@ export class EmpleadoService extends EmpleadoHelpers{
         const c = new Empleado(req.body);
         const old_c:any = await super.getEmpleado({Identidad: c.Identidad});
 
+        const suc_help:any = new sucursalHelpers();
+        const suc:any = await suc_help.getSucursal({_id: c.Sucursal});
+
         console.log(c);
         console.log(req.body);
 
-        if( old_c.length === 0 ){
+        if( old_c.length === 0 && !(suc.length === 0)){
             await c.save((err:Error, Empleado: IEmpleado)=>{
                 if(err){
                     res.status(401).send(err);
@@ -29,8 +33,8 @@ export class EmpleadoService extends EmpleadoHelpers{
                 }            
             });
         }else{
-            res.status(200).json({successed:false});
-        } 
+            res.status(200).json({successed:false, message: "Verifique que el Empleado no haya sido ingresado anteriormente o que la Sucursal proporsionada sea valida"});
+        }  
     }
     
     public async deleteOne(req:Request, res:Response){

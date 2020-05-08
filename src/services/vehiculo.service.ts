@@ -2,6 +2,7 @@ import {Request,Response} from "express";
 import {Vehiculo, IVehiculo} from "../models/vehiculo.model";
 import {VehiculoHelpers} from "../helpers/vehiculo.helpers";
 import {MongooseDocument} from "mongoose";
+import { sucursalHelpers } from "../helpers/sucursal.helpers";
 
 export class VehiculoService extends VehiculoHelpers{
     public getAll(req: Request, res: Response){
@@ -17,10 +18,13 @@ export class VehiculoService extends VehiculoHelpers{
         const c = new Vehiculo(req.body);
         const old_c:any = await super.getVehiculo({Placa: c.Placa});
 
+        const suc_help:any = new sucursalHelpers();
+        const suc:any = await suc_help.getSucursal({_id: c.Sucursal});
+
         console.log(c);
         console.log(req.body);
 
-        if( old_c.length === 0 ){
+        if( old_c.length === 0 && !(suc.length === 0)){
             await c.save((err:Error, Vehiculo: IVehiculo)=>{
                 if(err){
                     res.status(401).send(err);
@@ -29,7 +33,7 @@ export class VehiculoService extends VehiculoHelpers{
                 }            
             });
         }else{
-            res.status(200).json({successed:false});
+            res.status(200).json({successed:false, message: "Verifique que el Vehiculo no haya sido ingresado anteriormente o que la Sucursal proporsionada sea valida"});
         } 
     }
     
