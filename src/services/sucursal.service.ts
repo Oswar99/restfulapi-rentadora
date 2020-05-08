@@ -1,6 +1,8 @@
 import {Request,Response} from "express";
 import {Sucursal, ISucursal} from "../models/sucursal.model";
+
 import {MongooseDocument} from "mongoose";
+import { Empleado } from "../models/empleado.model";
 
 class sucursalHelpers{
     getSucursal(filtro:any):Promise<ISucursal>{
@@ -12,6 +14,20 @@ class sucursalHelpers{
                     resolve(Sucursal);
                 }
             });
+        });
+    }
+
+    empleadosPorSucursal(suc: ISucursal):Promise<number>{
+        console.log(suc._id);
+        return new Promise<number>( resolve => {
+            Empleado.aggregate([
+                { "$match": { "Sucursal": suc._id }}
+            ],(err: Error, data: any)=>{
+                if (err){
+                    console.log(err.message);
+                }
+                resolve(data.length);
+            })
         });
     }
 };
@@ -40,17 +56,28 @@ export class SucursalService extends sucursalHelpers{
         });
     }
     
-    
     public async deleteOne(req:Request, res:Response){
-        Sucursal.findByIdAndDelete(req.params.id,(err:Error)=>{
-            if(err){
-                res.status(401).json({successed:false, message:"Ocurrio un Error, contacte a soporte tecnico en caso de persistir"});
-            }else{
-                res.status(200).json({successed:true,message:"El Sucursal ha sido eliminado con exito"});
-            }
-        });
-    }
 
+        const suc = await super.getSucursal(req.params.id);
+        const nEmp: number = suc? await super.empleadosPorSucursal(suc) : 0;
+
+        if(suc == undefined){
+            res.status(401).json({successed:false, message:"Ocurrio un Error, contacte a soporte tecnico en caso de persistir"});
+        }else{
+            if (nEmp > 0){
+                res.status(401).json({successed:false, message:"No puede eliminarse ya que otros objetos dependen de el."});
+            }else{
+                Sucursal.findByIdAndDelete(req.params.id,(err:Error)=>{
+                    if(err){
+                        res.status(401).json({successed:false, message:"Ocurrio un Error, contacte a soporte tecnico en caso de persistir"});
+                    }else{
+                        res.status(200).json({successed:true,message:"El Sucursal ha sido eliminado con exito"});
+                    }
+                });
+            }
+        }    
+    }
+    
     public async getOne(req:Request, res:Response){
         const c: any = await super.getSucursal({_id:req.params.id});
         res.status(200).json(c[0]);
