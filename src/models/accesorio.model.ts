@@ -6,7 +6,7 @@ export interface IAccesorio extends mongoose.Document{
    Nombre: string;
    Descripcion: string;
    Costo: number;
-   Vehiculos: [{"Vehiculo": IVehiculo}];
+   Vehiculos: [IVehiculo];
 }
 
 const accesorioSchema = new mongoose.Schema({
@@ -14,7 +14,7 @@ const accesorioSchema = new mongoose.Schema({
     Nombre: {type: String, required: true},
     Descripcion: {type: String, required: true},
     Costo: {type: Number, required: true},
-    Vehiculos: [{"Vehiculo": {type: mongoose.Schema.Types.ObjectId, ref: "Vehiculo"}}]
+    Vehiculos: [{type: mongoose.Schema.Types.ObjectId, ref: "Vehiculo"}]
 });
 
 export const Accesorio =  mongoose.model<IAccesorio>("Accesorio", accesorioSchema);

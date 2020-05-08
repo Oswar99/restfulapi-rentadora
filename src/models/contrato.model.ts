@@ -11,8 +11,8 @@ export interface IContrato extends mongoose.Document{
     AbonoPrevio: number;
     Empleado: IEmpleado;
     Cliente: ICliente;
-    Vehiculos: [{"Vehiculo": IVehiculo}];
-    Extras: [{"Accesorio": IAccesorio}];
+    Vehiculos: [IVehiculo];
+    Extras: [IAccesorio];
 }
 
 const contratoSchema = new mongoose.Schema({
@@ -22,8 +22,8 @@ const contratoSchema = new mongoose.Schema({
     AbonoPrevio: {type: Number, required: true},
     Empleado: {type: mongoose.Schema.Types.ObjectId, ref: "Empleado"},
     Cliente: {type: mongoose.Schema.Types.ObjectId, ref: "Cliente"},
-    Vehiculos: [{"Vehiculo": {type: mongoose.Schema.Types.ObjectId, ref: "Vehiculo"}}],
-    Extras: [{"Accesorio": {type: mongoose.Schema.Types.ObjectId, ref: "Accesorio"}}]
+    Vehiculos: [{type: mongoose.Schema.Types.ObjectId, ref: "Vehiculo"}],
+    Extras: [{type: mongoose.Schema.Types.ObjectId, ref: "Accesorio"}]
 });
 
 export const Contrato =  mongoose.model<IContrato>("Contrato", contratoSchema);
