@@ -2,7 +2,7 @@ import {Request,Response} from "express";
 import {Sucursal, ISucursal} from "../models/sucursal.model";
 import {MongooseDocument} from "mongoose";
 
-class ClienteHelpers{
+class sucursalHelpers{
     getSucursal(filtro:any):Promise<ISucursal>{
         return new Promise<ISucursal>( (resolve) =>{
             Sucursal.find(filtro, (err:Error, Sucursal:ISucursal)=>{
@@ -16,7 +16,7 @@ class ClienteHelpers{
     }
 };
 
-export class ClienteService extends ClienteHelpers{
+export class SucursalService extends sucursalHelpers{
     public getAll(req: Request, res: Response){
         Sucursal.find({}, (err: Error, Sucursal: MongooseDocument)=>{
             if(err){
