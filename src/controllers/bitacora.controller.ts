@@ -1,7 +1,7 @@
 import {Application} from "express";
 import {BitacoraService} from "../services/bitacora.service";
 
-export class EmpleadoController{
+export class BitacoraController{
     private bitacora_service: BitacoraService;
     constructor(private app: Application){
         this.bitacora_service = new BitacoraService();
