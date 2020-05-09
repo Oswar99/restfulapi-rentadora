@@ -13,34 +13,38 @@ import { EmpleadoController } from "./controllers/empleado.controller";
 import { VehiculoController } from "./controllers/vehiculo.controller";
 import { AccesorioController } from "./controllers/accesorio.controller";
 import { ContratoController } from "./controllers/contrato.controller"
+import { BitacoraController } from "./controllers/bitacora.controller";
+import { FacturaController } from "./controllers/factura.controller";
 
 config({path: resolve(__dirname, "../.env")});
 
 class App{
     public app: Application;
-    public mainController: MainController;
-    public clienteController: ClienteController;
-    public sucursalController: SucursalController;
-    public empleadoController: EmpleadoController;
-    public vehiculoController: VehiculoController;
 
     public accesorioController: AccesorioController;
+    public bitacoraController: BitacoraController;
+    public clienteController: ClienteController;
     public contratoController: ContratoController;
-
+    public empleadoController: EmpleadoController;
+    public facturaController: FacturaController;
+    public mainController: MainController;
+    public sucursalController: SucursalController;
+    public vehiculoController: VehiculoController;
 
     constructor(){
         this.app = express();
         this.setConfig();
         this.setMongoConfig();
         
-        this.mainController = new MainController(this.app);
-        this.clienteController = new ClienteController(this.app);
-        this.sucursalController = new SucursalController(this.app);
-        this.empleadoController = new EmpleadoController(this.app);
-        this.vehiculoController = new VehiculoController(this.app);
-
         this.accesorioController = new AccesorioController(this.app);
+        this.bitacoraController = new BitacoraController(this.app);
+        this.clienteController = new ClienteController(this.app);
         this.contratoController = new ContratoController(this.app);
+        this.empleadoController = new EmpleadoController(this.app);
+        this.facturaController = new FacturaController(this.app);
+        this.mainController = new MainController(this.app);
+        this.sucursalController = new SucursalController(this.app);
+        this.vehiculoController = new VehiculoController(this.app);
     }
     private setConfig(){
         this.app.use(bodyParser.json({limit:"50mb"}));
