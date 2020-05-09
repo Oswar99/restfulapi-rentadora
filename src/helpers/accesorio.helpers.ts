@@ -9,7 +9,7 @@ export class AccesorioHelpers{
                 }else{
                     resolve(Accesorio);
                 }
-            });
+            })
         });
     }
 };

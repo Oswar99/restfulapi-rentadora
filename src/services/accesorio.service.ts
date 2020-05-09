@@ -53,17 +53,15 @@ export class AccesorioService extends AccesorioHelpers{
         const old_c:any = await super.getAccesorio({_id: req.params.id});
         
         if( old_c.length === 0 ){
-
-            Accesorio.findByIdAndUpdate(req.params.id,req.body,(err:Error)=>{
-                if(err){
-                    res.status(401).json({successed:false, message:"Ocurrio un Error, contacte a soporte tecnico en caso de persistir"});
-                }else{
-                    res.status(200).json({successed:true,message:"El Accesorio ha sido actualizado con exito"});
-                }
-            });
-
-        }else{
             res.status(200).json({successed:false});
+        }else{
+                Accesorio.findByIdAndUpdate(req.params.id,req.body,(err:Error)=>{
+                    if(err){
+                        res.status(401).json({successed:false, message:"Ocurrio un Error, contacte a soporte tecnico en caso de persistir"});
+                    }else{
+                        res.status(200).json({successed:true,message:"El Accesorio ha sido actualizado con exito"});
+                    }
+                });
         } 
     }
 

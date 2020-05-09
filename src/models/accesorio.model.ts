@@ -6,7 +6,7 @@ export interface IAccesorio extends mongoose.Document{
    Nombre: string;
    Descripcion: string;
    Costo: number;
-   Vehiculos: [IVehiculo];
+   Vehiculos: IVehiculo[];
 }
 
 const accesorioSchema = new mongoose.Schema({
