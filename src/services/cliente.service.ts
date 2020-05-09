@@ -34,13 +34,25 @@ export class ClienteService extends ClienteHelpers{
     }
     
     public async deleteOne(req:Request, res:Response){
-        Cliente.findByIdAndDelete(req.params.id,(err:Error)=>{
-            if(err){
-                res.status(401).json({successed:false, message:"Ocurrio un Error, contacte a soporte tecnico en caso de persistir"});
+        const cli: ICliente = await super.getCliente(req.body.id);
+        const nCon: number = await super.contratosPorCliente(cli._id);
+
+        if (cli === undefined){
+            res.status(401).json({successed:false, message:"Ocurrio un Error, contacte a soporte tecnico en caso de persistir"});
+        }else{
+            if(nCon > 0){
+                res.status(401).json({successed:false, message:"No puede eliminar este Cliente, tiene Contratos Registrados"});
             }else{
-                res.status(200).json({successed:true,message:"El Cliente ha sido eliminado con exito"});
+                Cliente.findByIdAndDelete(req.params.id,(err:Error)=>{
+                    if(err){
+                        res.status(401).json({successed:false, message:"Ocurrio un Error, contacte a soporte tecnico en caso de persistir"});
+                    }else{
+                        res.status(200).json({successed:true,message:"El Cliente ha sido eliminado con exito"});
+                    }
+                });
             }
-        });
+        }
+        
     }
 
     public async getOne(req:Request, res:Response){

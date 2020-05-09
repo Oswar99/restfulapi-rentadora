@@ -38,13 +38,24 @@ export class EmpleadoService extends EmpleadoHelpers{
     }
     
     public async deleteOne(req:Request, res:Response){
-        Empleado.findByIdAndDelete(req.params.id,(err:Error)=>{
-            if(err){
-                res.status(401).json({successed:false, message:"Ocurrio un Error, contacte a soporte tecnico en caso de persistir"});
+        const emp: IEmpleado = await super.getEmpleado(req.body.id);
+        const nCon: number = await super.contratoPorEmpleado(emp._id);
+
+        if (emp === undefined){
+            res.status(401).json({successed:false, message:"Ocurrio un Error, contacte a soporte tecnico en caso de persistir"});
+        }else{
+            if(nCon > 0){
+                res.status(401).json({successed:false, message:"No puede eliminar este Empleado, tiene Contratos Registrados"});
             }else{
-                res.status(200).json({successed:true,message:"El Empleado ha sido eliminado con exito"});
+                Empleado.findByIdAndDelete(req.params.id,(err:Error)=>{
+                    if(err){
+                        res.status(401).json({successed:false, message:"Ocurrio un Error, contacte a soporte tecnico en caso de persistir"});
+                    }else{
+                        res.status(200).json({successed:true,message:"El Empleado ha sido eliminado con exito"});
+                    }
+                });
             }
-        });
+        }
     }
 
     public async getOne(req:Request, res:Response){

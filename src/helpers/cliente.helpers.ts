@@ -1,4 +1,5 @@
 import {Cliente, ICliente} from "../models/cliente.model";
+import { Contrato } from '../models/contrato.model';
 
 export class ClienteHelpers{
     getCliente(filtro:any):Promise<ICliente>{
@@ -10,6 +11,20 @@ export class ClienteHelpers{
                     resolve(Cliente);
                 }
             });
+        });
+    }
+
+    contratosPorCliente(cli: ICliente):Promise<number>{
+        console.log(cli._id);
+        return new Promise<number>( resolve => {
+            Contrato.aggregate([
+                { "$match": { "Cliente": cli._id }}
+            ],(err: Error, data: any)=>{
+                if (err){
+                    console.log(err.message);
+                }
+                resolve(data.length);
+            })
         });
     }
 };
