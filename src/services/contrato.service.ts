@@ -34,13 +34,24 @@ export class ContratoService extends ContratoHelpers{
     }
     
     public async deleteOne(req:Request, res:Response){
-        Contrato.findByIdAndDelete(req.params.id,(err:Error)=>{
-            if(err){
-                res.status(401).json({successed:false, message:"Ocurrio un Error, contacte a soporte tecnico en caso de persistir"});
+        const con = await super.getContrato(req.params.id);
+        const nFac: number = con? await super.contratosPorFactura(con) : 0;
+
+        if(con == undefined){
+            res.status(401).json({successed:false, message:"Ocurrio un Error, contacte a soporte tecnico en caso de persistir"});
+        }else{
+            if (nFac > 0){
+                res.status(401).json({successed:false, message:"No puede eliminarse ya que otros objetos dependen de el."});
             }else{
-                res.status(200).json({successed:true,message:"El Contrato ha sido eliminado con exito"});
+                Contrato.findByIdAndDelete(req.params.id,(err:Error)=>{
+                    if(err){
+                        res.status(401).json({successed:false, message:"Ocurrio un Error, contacte a soporte tecnico en caso de persistir"});
+                    }else{
+                        res.status(200).json({successed:true,message:"El Contrato ha sido eliminado con exito"});
+                    }
+                });
             }
-        });
+        }
     }
 
     public async getOne(req:Request, res:Response){
