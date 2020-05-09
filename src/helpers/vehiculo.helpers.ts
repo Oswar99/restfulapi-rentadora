@@ -1,4 +1,5 @@
 import {Vehiculo, IVehiculo} from "../models/vehiculo.model";
+import { Bitacora } from '../models/bitacora.model';
 
 export class VehiculoHelpers{
     getVehiculo(filtro:any):Promise<IVehiculo>{
@@ -10,6 +11,19 @@ export class VehiculoHelpers{
                     resolve(Vehiculo);
                 }
             });
+        });
+    }
+    bitacorasPorVehiculo(veh: IVehiculo):Promise<number>{
+        console.log(veh._id);
+        return new Promise<number>( resolve => {
+            Bitacora.aggregate([
+                { "$match": { "Vehiculo": veh._id }}
+            ],(err: Error, data: any)=>{
+                if (err){
+                    console.log(err.message);
+                }
+                resolve(data.length);
+            })
         });
     }
 };

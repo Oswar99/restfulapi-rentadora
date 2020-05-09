@@ -32,11 +32,12 @@ export class SucursalService extends sucursalHelpers{
 
         const suc = await super.getSucursal(req.params.id);
         const nEmp: number = suc? await super.empleadosPorSucursal(suc) : 0;
+        const nVeh: number = suc? await super.vehiculosPorSucursal(suc) : 0;
 
         if(suc == undefined){
             res.status(401).json({successed:false, message:"Ocurrio un Error, contacte a soporte tecnico en caso de persistir"});
         }else{
-            if (nEmp > 0){
+            if (nEmp > 0 || nVeh > 0){
                 res.status(401).json({successed:false, message:"No puede eliminarse ya que otros objetos dependen de el."});
             }else{
                 Sucursal.findByIdAndDelete(req.params.id,(err:Error)=>{

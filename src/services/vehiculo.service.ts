@@ -38,13 +38,25 @@ export class VehiculoService extends VehiculoHelpers{
     }
     
     public async deleteOne(req:Request, res:Response){
-        Vehiculo.findByIdAndDelete(req.params.id,(err:Error)=>{
-            if(err){
-                res.status(401).json({successed:false, message:"Ocurrio un Error, contacte a soporte tecnico en caso de persistir"});
+        
+        const veh = await super.getVehiculo(req.params.id);
+        const nBita: number = veh? await super.bitacorasPorVehiculo(veh) : 0;
+
+        if(veh == undefined){
+            res.status(401).json({successed:false, message:"Ocurrio un Error, contacte a soporte tecnico en caso de persistir"});
+        }else{
+            if (nBita > 0){
+                res.status(401).json({successed:false, message:"No puede eliminarse ya que otros objetos dependen de el."});
             }else{
-                res.status(200).json({successed:true,message:"El Vehiculo ha sido eliminado con exito"});
+                Vehiculo.findByIdAndDelete(req.params.id,(err:Error)=>{
+                    if(err){
+                        res.status(401).json({successed:false, message:"Ocurrio un Error, contacte a soporte tecnico en caso de persistir"});
+                    }else{
+                        res.status(200).json({successed:true,message:"El Vehiculo ha sido eliminado con exito"});
+                    }
+                });
             }
-        });
+        }
     }
 
     public async getOne(req:Request, res:Response){
