@@ -12,6 +12,7 @@ import { SucursalController } from "./controllers/sucursal.controller";
 import { EmpleadoController } from "./controllers/empleado.controller";
 import { VehiculoController } from "./controllers/vehiculo.controller";
 import { AccesorioController } from "./controllers/accesorio.controller";
+import { ContratoController } from "./controllers/contrato.controller"
 
 config({path: resolve(__dirname, "../.env")});
 
@@ -24,6 +25,7 @@ class App{
     public vehiculoController: VehiculoController;
 
     public accesorioController: AccesorioController;
+    public contratoController: ContratoController;
 
 
     constructor(){
@@ -38,6 +40,7 @@ class App{
         this.vehiculoController = new VehiculoController(this.app);
 
         this.accesorioController = new AccesorioController(this.app);
+        this.contratoController = new ContratoController(this.app);
     }
     private setConfig(){
         this.app.use(bodyParser.json({limit:"50mb"}));
