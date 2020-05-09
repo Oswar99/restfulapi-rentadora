@@ -62,7 +62,7 @@ export class ContratoService extends ContratoHelpers{
     public async updateOne(req:Request, res:Response){       
         const old_c:any = await super.getContrato({_id: req.params.id});
         
-        if( old_c.length === 0 ){
+        if( old_c.length > 0 ){
 
             Contrato.findByIdAndUpdate(req.params.id,req.body,(err:Error)=>{
                 if(err){

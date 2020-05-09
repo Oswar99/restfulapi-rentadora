@@ -51,7 +51,7 @@ export class FacturaService extends FacturaHelpers{
     public async updateOne(req:Request, res:Response){       
         const old_c:any = await super.getFactura({_id: req.params.id});
         
-        if( old_c.length === 0 ){
+        if( old_c.length > 0 ){
 
             Factura.findByIdAndUpdate(req.params.id,req.body,(err:Error)=>{
                 if(err){
