@@ -8,7 +8,7 @@
     "start": "nodemon"
   },
   "keywords": [],
-  "author": "Oswar",
+  "author": "Oswar, Margorie, Lesly",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.19.0",
