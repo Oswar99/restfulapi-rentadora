@@ -18,5 +18,12 @@ export class BitacoraController{
         .get(this.bitacora_service.getOne)
         .put(this.bitacora_service.updateOne);
         
+        this.app.route("/bitacora/vehiculo/:id")
+        .delete(this.bitacora_service.deleteVehiculo)
+        .put(this.bitacora_service.addVehiculo)
+        .get(this.bitacora_service.findVehiculo);
+
+        
+        
     }
 }

@@ -1,5 +1,5 @@
 import {Vehiculo, IVehiculo} from "../models/vehiculo.model";
-import { Bitacora } from '../models/bitacora.model';
+import { Bitacora, IBitacora } from '../models/bitacora.model';
 
 export class VehiculoHelpers{
     getVehiculo(filtro:any):Promise<IVehiculo>{
@@ -13,16 +13,28 @@ export class VehiculoHelpers{
             });
         });
     }
-    bitacorasPorVehiculo(veh: IVehiculo):Promise<number>{
-        console.log(veh._id);
+    bitacorasPorVehiculo(veh: any):Promise<number>{
         return new Promise<number>( resolve => {
-            Bitacora.find({ Vehiculos: { $all: [veh._id] } }, (err: Error, data: any)=>{
+            Bitacora.aggregate([
+               {"$match": {Vehiculos: {$all: [veh]}} }
+            ],(err: Error, data: any)=>{
+                if (err){
+                    console.log(err.message);
+                }
+                resolve(data.length);
+            })
+        });
+    }
+    bpv(filtro: any): Promise<number>{
+        return new Promise<number>( resolve =>{
+            Bitacora.find(filtro, (err:Error, bit: IBitacora[])=>{
                 if(err){
                     console.log(err.message);
                 }else{
-                    resolve(data.length)
+                    resolve(bit.length);
                 }
             });
         });
     }
+
 };

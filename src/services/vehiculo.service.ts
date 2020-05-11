@@ -39,29 +39,25 @@ export class VehiculoService extends VehiculoHelpers{
     
     public async deleteOne(req:Request, res:Response){
         
-        const veh = await super.getVehiculo(req.params.id);
-        const nBita: number = veh? await super.bitacorasPorVehiculo(veh) : 0;
+        const nBit: number = await super.bpv({Vehiculos: {$all: [req.params.id]}});
 
-        if(veh == undefined){
-            res.status(401).json({successed:false, message:"Ocurrio un Error, contacte a soporte tecnico en caso de persistir"});
+        if( nBit > 0 ){
+            res.status(401).json({successed:false, message:"El Vehiculo esta relacionado con Bitacoras"});
         }else{
-            if (nBita > 0){
-                res.status(401).json({successed:false, message:"No puede eliminarse ya que otros objetos dependen de el."});
-            }else{
-                Vehiculo.findByIdAndDelete(req.params.id,(err:Error)=>{
-                    if(err){
-                        res.status(401).json({successed:false, message:"Ocurrio un Error, contacte a soporte tecnico en caso de persistir"});
-                    }else{
-                        res.status(200).json({successed:true,message:"El Vehiculo ha sido eliminado con exito"});
-                    }
-                });
-            }
-        }
+            Vehiculo.findByIdAndDelete(req.params.id,(err:Error)=>{
+                if(err){
+                    res.status(401).json({successed:false, message:"Ocurrio un Error, contacte a soporte tecnico en caso de persistir"});
+                }else{
+                    res.status(200).json({successed:true,message:"El Vehiculo ha sido eliminado con exito"});
+                }
+            });  
+        }  
+        
     }
 
     public async getOne(req:Request, res:Response){
         const c: any = await super.getVehiculo({_id:req.params.id});
-        res.status(200).json(c[0]);
+        res.status(200).json({successed:true, Vehiculo: c}) 
     }
 
     public async updateOne(req:Request, res:Response){       

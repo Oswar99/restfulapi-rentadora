@@ -1,4 +1,6 @@
 import {Bitacora, IBitacora} from "../models/bitacora.model";
+import { IVehiculo } from "../models/vehiculo.model";
+import { isArray } from "util";
 
 export class BitacoraHelpers{
     getBitacora(filtro:any):Promise<IBitacora>{
@@ -12,4 +14,5 @@ export class BitacoraHelpers{
             });
         });
     }
+
 };
