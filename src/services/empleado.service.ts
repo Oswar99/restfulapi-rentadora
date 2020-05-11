@@ -8,9 +8,9 @@ export class EmpleadoService extends EmpleadoHelpers{
     public getAll(req: Request, res: Response){
         Empleado.find({}, (err: Error, Empleado: MongooseDocument)=>{
             if(err){
-                res.status(401).send(err.message);
+                res.status(401).send({successed:false, message: err.message});
             }
-            res.status(200).json(Empleado);
+            res.status(200).json({successed:true, Empleados: Empleado });
         });
     }
 
@@ -27,7 +27,7 @@ export class EmpleadoService extends EmpleadoHelpers{
         if( old_c.length === 0 && !(suc.length === 0)){
             await c.save((err:Error, Empleado: IEmpleado)=>{
                 if(err){
-                    res.status(401).send(err);
+                    res.status(401).send({successed:false, message: err.message});
                 }else{
                     res.status(200).json( Empleado? {successed:true, Empleado: Empleado } : {successed:false} );
                 }            

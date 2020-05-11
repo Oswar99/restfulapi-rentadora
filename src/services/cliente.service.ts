@@ -7,9 +7,9 @@ export class ClienteService extends ClienteHelpers{
     public getAll(req: Request, res: Response){
         Cliente.find({}, (err: Error, Cliente: MongooseDocument)=>{
             if(err){
-                res.status(401).send(err.message);
+                res.status(401).send({successed:false, message: err.message});
             }
-            res.status(200).json(Cliente);
+            res.status(200).json({successed:true, Clientes: Cliente });
         });
     }
 
@@ -23,7 +23,7 @@ export class ClienteService extends ClienteHelpers{
         if( old_c.length === 0 ){
             await c.save((err:Error, Cliente: ICliente)=>{
                 if(err){
-                    res.status(401).send(err);
+                    res.status(401).send({successed:false, message: err.message});
                 }else{
                     res.status(200).json( Cliente? {successed:true, Cliente: Cliente } : {successed:false} );
                 }            

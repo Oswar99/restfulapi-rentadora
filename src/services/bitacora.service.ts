@@ -8,32 +8,25 @@ export class BitacoraService extends BitacoraHelpers{
     public getAll(req: Request, res: Response){
         Bitacora.find({}, (err: Error, Bitacora: MongooseDocument)=>{
             if(err){
-                res.status(401).send(err.message);
+                res.status(401).send({successed:false, message: err.message});
             }
-            res.status(200).json(Bitacora);
+            res.status(200).json({successed:true, Bitacoras: Bitacora });
         });
     }
 
     public async newOne(req: Request, res: Response){        
         const c = new Bitacora(req.body);
-        
-        const veh_help:any = new VehiculoHelpers();
-        const veh:any = await veh_help.getVehiculo({_id: c.Vehiculo});
 
         console.log(c);
         console.log(req.body);
 
-        if(!(veh.length === 0)){
-            await c.save((err:Error, Bitacora: IBitacora)=>{
-                if(err){
-                    res.status(401).send(err);
-                }else{
-                    res.status(200).json( Bitacora? {successed:true, Bitacora: Bitacora } : {successed:false} );
-                }            
-            });
-        }else{
-            res.status(200).json({successed:false, message: "Verifique que el Vehiculo proporsionado sea valida"});
-        }  
+        await c.save((err:Error, Bitacora: IBitacora)=>{
+            if(err){
+                res.status(401).send({successed:false, message: err.message});
+            }else{
+                res.status(200).json( Bitacora? {successed:true, Bitacora: Bitacora } : {successed:false} );
+            }            
+        });
     }
     
     public async deleteOne(req:Request, res:Response){

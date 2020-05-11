@@ -8,9 +8,9 @@ export class SucursalService extends sucursalHelpers{
     public getAll(req: Request, res: Response){
         Sucursal.find({}, (err: Error, Sucursal: MongooseDocument)=>{
             if(err){
-                res.status(401).send(err.message);
+                res.status(401).send({successed:false, message: err.message});
             }
-            res.status(200).json(Sucursal);
+            res.status(200).json({successed:true, Sucursales: Sucursal });
         });
     }
 
@@ -21,7 +21,7 @@ export class SucursalService extends sucursalHelpers{
 
         await c.save((err:Error, Sucursal: ISucursal)=>{
             if(err){
-                res.status(401).send(err);
+                res.status(401).send({successed:false, message: err.message});
             }else{
                 res.status(200).json( Sucursal? {successed:true, Sucursal: Sucursal } : {successed:false} );
             }            

@@ -8,9 +8,9 @@ export class AccesorioService extends AccesorioHelpers{
     public getAll(req: Request, res: Response){
         Accesorio.find({}, (err: Error, Accesorio: MongooseDocument)=>{
             if(err){
-                res.status(401).send(err.message);
+                res.status(401).send({successed:false, message: err.message});
             }
-            res.status(200).json(Accesorio);
+            res.status(200).json({successed:true, Accesorios: Accesorio });
         });
     }
 
@@ -24,7 +24,7 @@ export class AccesorioService extends AccesorioHelpers{
         if( old_c.length === 0){
             await c.save((err:Error, Accesorio: IAccesorio)=>{
                 if(err){
-                    res.status(401).send(err);
+                    res.status(401).send({successed:false, message: err.message});
                 }else{
                     res.status(200).json( Accesorio? {successed:true, Accesorio: Accesorio } : {successed:false} );
                 }            

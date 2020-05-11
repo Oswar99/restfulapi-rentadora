@@ -16,14 +16,13 @@ export class VehiculoHelpers{
     bitacorasPorVehiculo(veh: IVehiculo):Promise<number>{
         console.log(veh._id);
         return new Promise<number>( resolve => {
-            Bitacora.aggregate([
-                { "$match": { "Vehiculo": veh._id }}
-            ],(err: Error, data: any)=>{
-                if (err){
+            Bitacora.find({ Vehiculos: { $all: [veh._id] } }, (err: Error, data: any)=>{
+                if(err){
                     console.log(err.message);
+                }else{
+                    resolve(data.length)
                 }
-                resolve(data.length);
-            })
+            });
         });
     }
 };

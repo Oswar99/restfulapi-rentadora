@@ -8,9 +8,9 @@ export class VehiculoService extends VehiculoHelpers{
     public getAll(req: Request, res: Response){
         Vehiculo.find({}, (err: Error, Vehiculo: MongooseDocument)=>{
             if(err){
-                res.status(401).send(err.message);
+                res.status(401).send({successed:false, message: err.message});
             }
-            res.status(200).json(Vehiculo);
+            res.status(200).json({successed:true, Vehiculos: Vehiculo });
         });
     }
 
@@ -27,7 +27,7 @@ export class VehiculoService extends VehiculoHelpers{
         if( old_c.length === 0 && !(suc.length === 0)){
             await c.save((err:Error, Vehiculo: IVehiculo)=>{
                 if(err){
-                    res.status(401).send(err);
+                    res.status(401).send({successed:false, message: err.message});
                 }else{
                     res.status(200).json( Vehiculo? {successed:true, Vehiculo: Vehiculo } : {successed:false} );
                 }            

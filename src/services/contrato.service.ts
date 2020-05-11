@@ -7,9 +7,9 @@ export class ContratoService extends ContratoHelpers{
     public getAll(req: Request, res: Response){
         Contrato.find({}, (err: Error, Contrato: MongooseDocument)=>{
             if(err){
-                res.status(401).send(err.message);
+                res.status(401).send({successed:false, message: err.message});
             }
-            res.status(200).json(Contrato);
+            res.status(200).json({successed:true, Contratos: Contrato });
         });
     }
 
@@ -23,7 +23,7 @@ export class ContratoService extends ContratoHelpers{
         if( old_c.length === 0){
             await c.save((err:Error, Contrato: IContrato)=>{
                 if(err){
-                    res.status(401).send(err);
+                    res.status(401).send({successed:false, message: err.message});
                 }else{
                     res.status(200).json( Contrato? {successed:true, Contrato: Contrato } : {successed:false} );
                 }            

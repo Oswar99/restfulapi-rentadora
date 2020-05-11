@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
 import { ICliente } from "./cliente.model";
-import { IVehiculo } from "./vehiculo.model";
 import { IEmpleado } from "./empleado.model";
 import { IAccesorio } from "./accesorio.model"
 
@@ -11,8 +10,7 @@ export interface IContrato extends mongoose.Document{
     AbonoPrevio: number;
     Empleado: IEmpleado;
     Cliente: ICliente;
-    Vehiculos: [IVehiculo];
-    Extras: [IAccesorio];
+    Extras: IAccesorio[];
 }
 
 const contratoSchema = new mongoose.Schema({
@@ -22,7 +20,6 @@ const contratoSchema = new mongoose.Schema({
     AbonoPrevio: {type: Number, required: true},
     Empleado: {type: mongoose.Schema.Types.ObjectId, ref: "Empleado"},
     Cliente: {type: mongoose.Schema.Types.ObjectId, ref: "Cliente"},
-    Vehiculos: [{type: mongoose.Schema.Types.ObjectId, ref: "Vehiculo"}],
     Extras: [{type: mongoose.Schema.Types.ObjectId, ref: "Accesorio"}]
 });
 
