@@ -1,0 +1,149 @@
+[33mcommit 28cb1990cbb79efe164e2a74c4eede58d93eb368[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m)[m
+Author: Oswar <moises.cruzn499@gmail.com>
+Date:   Mon May 11 05:31:41 2020 -0600
+
+    Se han cambiado algunas validacion con respecto a vehiculos y bitacoras
+
+[33mcommit c80b2855880c34511d408381157d721b3f3250f4[m
+Author: Oswar <moises.cruzn499@gmail.com>
+Date:   Mon May 11 00:26:01 2020 -0600
+
+    Cambios menores en services de todos los objetos
+
+[33mcommit 122d97810fcea0e99a1331fc7ea4e4bdc2e72e51[m
+Author: Oswar <moises.cruzn499@gmail.com>
+Date:   Sat May 9 22:49:32 2020 -0600
+
+    se modifico el package
+
+[33mcommit 6abfe113b7fe217d098c84fddb086aef61f7d217[m
+Author: Oswar <moises.cruzn499@gmail.com>
+Date:   Sat May 9 12:34:46 2020 -0600
+
+    Se ha corregido el metodo UpdateOne en todos los object.service.ts(actualizacion)
+
+[33mcommit 92088a1755036e892b9284b35e12c2b1efcd4e40[m
+Author: Oswar <moises.cruzn499@gmail.com>
+Date:   Sat May 9 12:29:02 2020 -0600
+
+    Se ha corregido el metodo UpdateOne en todos los object.service.ts
+
+[33mcommit 6aa29590350a62994e6851b8d27bd1b1d08811f4[m
+Author: Lesly <aleslymabely@yahoo.com>
+Date:   Sat May 9 01:56:47 2020 -0600
+
+    Se modifico App.ts, motivo: Controladores
+
+[33mcommit 172de800735698a6940c71635e7c58e247e4f19e[m
+Author: Lesly <aleslymabely@yahoo.com>
+Date:   Sat May 9 01:49:14 2020 -0600
+
+    Se modifico el nombre del paquete
+
+[33mcommit fe4633e014f30115777e42088b9a471ec5cf8a7b[m
+Author: Margorie <margorie_mendez@yahoo.com>
+Date:   Sat May 9 02:33:51 2020 -0500
+
+    se ha agregado la verificacion de contratos al eliminar un empleado o usuario
+
+[33mcommit dd7a75d73c83b378b508fc75dc372213cc038446[m
+Author: Margorie <margorie_mendez@yahoo.com>
+Date:   Sat May 9 02:15:19 2020 -0500
+
+    se ha modificado Vehiculo(service) no se puede eliminar un vehiculo sin verificar la bitacora
+
+[33mcommit ed1994669d5a056fd9c36f538c54f82d6002637a[m
+Author: Margorie <margorie_mendez@yahoo.com>
+Date:   Sat May 9 01:11:23 2020 -0500
+
+    Se han realizado cambios en Contratos(service, helpers) al eliminar un contrato verifica que no hayan facturas
+
+[33mcommit f02b2437ff34917a1e0cebb6096bf037a5e9927e[m
+Author: Lesly <aleslymabely@yahoo.com>
+Date:   Fri May 8 22:28:20 2020 -0600
+
+    Se ha agregado Contrato(service, controller, helpers), se modifico app.ts
+
+[33mcommit 5319c03625d868ccb42ae6998cfa03e794c0d6b2[m
+Author: Oswar <moises.cruzn499@gmail.com>
+Date:   Fri May 8 04:58:45 2020 -0600
+
+    se ha definido 'Accesorio', se han hecho modificaciones en la declaracion de los atributos de tipo array en Accesorios y Contratos
+
+[33mcommit 682125df34182b823365c75f5aa419092574116a[m
+Author: Oswar <moises.cruzn499@gmail.com>
+Date:   Fri May 8 04:01:26 2020 -0600
+
+    Factura(helpers, controller, service) agregados, faltan algunas verificaciones
+
+[33mcommit 55a38421155d58220e38a5e8a9ccdab2067dea32[m
+Author: Oswar <moises.cruzn499@gmail.com>
+Date:   Fri May 8 03:45:06 2020 -0600
+
+    Bitacora(controller) modificacion leve
+
+[33mcommit 9d4e1248532be081ef67e5b387d88c173fe98256[m
+Author: Oswar <moises.cruzn499@gmail.com>
+Date:   Fri May 8 03:34:28 2020 -0600
+
+    Bitacora(helpers, service, controller) ha sido definida y agregada falta validacion al eliminar
+
+[33mcommit 5415281a3a1f5b7f672675fa1a72006c8fe1ac63[m
+Author: Oswar <moises.cruzn499@gmail.com>
+Date:   Fri May 8 03:08:07 2020 -0600
+
+    se han modificado app.ts, empleado y vehiculo(service) ahora al agregar uno nuevo verifica que la sucursal exista en la base de datos
+
+[33mcommit ec4f8c639221207b7f83d1ab47af48c8964e66c6[m
+Author: Oswar <moises.cruzn499@gmail.com>
+Date:   Fri May 8 02:10:05 2020 -0600
+
+    empleado(helpers, service, controller) han sido definidos
+
+[33mcommit 24ae645241313d664e9137053a1bf682fbc800f9[m
+Author: Oswar <moises.cruzn499@gmail.com>
+Date:   Fri May 8 02:01:00 2020 -0600
+
+    dentro de src se creo la carpeta helpers, esto con el proposito para definir de forma mas ordenado el codigo
+
+[33mcommit 4b80f796451fc6f373be8701a1aba5adda9cd841[m
+Author: Oswar <moises.cruzn499@gmail.com>
+Date:   Fri May 8 01:33:01 2020 -0600
+
+    Se han agregado empleado.service y empleado.controller, se modifico sucursal.service ahora no elimina si hay un empleado dependiendo de el
+
+[33mcommit fac27c346baf094abd1c41e91dc6e4d0db20441f[m
+Author: Oswar <moises.cruzn499@gmail.com>
+Date:   Fri May 8 00:37:49 2020 -0600
+
+    se agrego sucursal.controller y se modificaron cliente.controller y sucursal.service
+
+[33mcommit af6b7563354248c4d0d30ace15a4c817576bc826[m
+Author: Oswar <moises.cruzn499@gmail.com>
+Date:   Wed May 6 05:28:16 2020 -0600
+
+    se han agregado los modelos de los objetos pendientes antes definidos
+
+[33mcommit 92bbbef7b909477776fa95800170d91432d593f0[m
+Author: Oswar <moises.cruzn499@gmail.com>
+Date:   Tue May 5 05:41:24 2020 -0600
+
+    carpeta 'models' modificada: se definio las atributos de bitacora e vehiculo
+
+[33mcommit 116dadf12b0d99c9d48fd1a3bcb6e37f995d063e[m
+Author: Oswar <moises.cruzn499@gmail.com>
+Date:   Tue May 5 05:15:52 2020 -0600
+
+    Objeto Sucursal definido parcialmente a espera de Vehiculo
+
+[33mcommit 3ffaaf56d633ec8558249a6a7d793e2ae7a4a933[m
+Author: Oswar <moises.cruzn499@gmail.com>
+Date:   Mon May 4 06:10:10 2020 -0600
+
+    endpoints de Cliente creados, cambio del servidor al puerto 3001
+
+[33mcommit 78329816ceb7d93e5a54225d11629cd061419dee[m
+Author: Oswar <moises.cruzn499@gmail.com>
+Date:   Wed Apr 29 02:09:08 2020 -0600
+
+    Configuracion Inicial
