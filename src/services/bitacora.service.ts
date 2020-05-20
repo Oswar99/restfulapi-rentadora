@@ -49,8 +49,24 @@ export class BitacoraService extends BitacoraHelpers{
         res.status(200).json(c[0]);
     }
 
-    
+    public async updateOne(req:Request, res:Response){       
+        const old_c:any = await super.getBitacora({_id: req.params.id});
+        
+        if( old_c.length > 0 ){
 
+            Bitacora.findByIdAndUpdate(req.params.id,req.body,(err:Error)=>{
+                if(err){
+                    res.status(401).json({successed:false, message:"Ocurrio un Error, contacte a soporte tecnico en caso de persistir"});
+                }else{
+                    res.status(200).json({successed:true,message:"La Bitacora ha sido actualizado con exito"});
+                }
+            });
+
+        }else{
+            res.status(401).json({successed:false});
+        } 
+    }
+    
     public async addVehiculo(req: Request, res: Response){
         Bitacora.update({_id: req.params.id}, {$push: req.body},(err: Error)=>{
             if(err){

@@ -10,6 +10,8 @@ export interface IVehiculo extends mongoose.Document{
     No_Serie: string;
     Precio_Renta: Number;
     Sucursal: ISucursal;
+    Imagen: string;
+    Descripcion: string;
 }
 
 const vehiculoSchema = new mongoose.Schema({
@@ -20,6 +22,8 @@ const vehiculoSchema = new mongoose.Schema({
     Color : {type: String, required: true},
     No_Serie : {type: String, required: true},
     Precio_Renta: {type: Number, required: true},
+    Imagen : {type: String, required: false},
+    Descripcion : {type: String, required: false},
     Sucursal: {type: mongoose.Schema.Types.ObjectId, ref: "Sucursal"}
 });
 
