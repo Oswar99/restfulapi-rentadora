@@ -78,4 +78,15 @@ export class ClienteService extends ClienteHelpers{
         } 
     }
 
+    public async verifyClient(req: Request, res: Response){
+        console.log(req.params);
+        Cliente.findOne({$and: [{Correo: req.params.correo}, {Contraseña: req.params.contra}]}, (err: Error, cli: any)=>{
+            if(err){
+                res.status(401).json({successed:false, message: err.message});
+            }else{
+                res.status(200).json({successed:true, Cliente: cli});
+                console.log({Cliente: cli});
+            }
+        })
+    }
 };

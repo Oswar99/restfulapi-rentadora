@@ -57,7 +57,8 @@ export class VehiculoService extends VehiculoHelpers{
 
     public async getOne(req:Request, res:Response){
         const c: any = await super.getVehiculo({_id:req.params.id});
-        res.status(200).json({successed:true, Vehiculo: c}) 
+        res.status(200).json( c? {successed:true, Vehiculo: c}: {successed:false}) 
+        console.log(c);
     }
 
     public async updateOne(req:Request, res:Response){       

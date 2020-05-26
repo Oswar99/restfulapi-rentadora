@@ -11,8 +11,12 @@ export class ClienteController{
             
         this.app.route("/clientes").get(this.cliente_service.getAll);
 
-        this.app.route("/cliente").post(this.cliente_service.newOne);
+        this.app.route("/cliente")
+        .post(this.cliente_service.newOne);
 
+        this.app.route("/cliente/verificar/:correo/:contra")
+        .get(this.cliente_service.verifyClient);
+        
         this.app.route("/cliente/:id")
         .delete(this.cliente_service.deleteOne)
         .get(this.cliente_service.getOne)

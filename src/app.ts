@@ -16,6 +16,7 @@ import { ContratoController } from "./controllers/contrato.controller"
 import { BitacoraController } from "./controllers/bitacora.controller";
 import { FacturaController } from "./controllers/factura.controller";
 import { UsuarioController } from "./controllers/usuario.controller";
+import { CarritoController } from "./controllers/carrito.controller";
 
 config({path: resolve(__dirname, "../.env")});
 
@@ -32,6 +33,7 @@ class App{
     public sucursalController: SucursalController;
     public vehiculoController: VehiculoController;
     public usuarioController: UsuarioController;
+    public carritoController: CarritoController;
 
     constructor(){
         this.app = express();
@@ -48,6 +50,7 @@ class App{
         this.sucursalController = new SucursalController(this.app);
         this.vehiculoController = new VehiculoController(this.app);
         this.usuarioController = new UsuarioController(this.app);
+        this.carritoController = new CarritoController(this.app)
     }
     private setConfig(){
         this.app.use(bodyParser.json({limit:"50mb"}));
