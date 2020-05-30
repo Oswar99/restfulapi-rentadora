@@ -1,11 +1,11 @@
 import {Request, Response} from "express";
 import {ICarrito, Carrito} from "../models/carrito.model";
-import {ClienteHelpers} from "../helpers/cliente.helpers";
 import { ICliente } from "../models/cliente.model";
 import { MongooseDocument } from "mongoose";
-import { IVehiculo } from "../models/vehiculo.model";
+import { CarritoHelpers } from "../helpers/carrito.helpers";
+import { IVehiculo, Vehiculo } from "../models/vehiculo.model";
 
-export class CarritoService extends ClienteHelpers{
+export class CarritoService extends CarritoHelpers{
 
     public async newOne(req: Request, res: Response){        
         const c = new Carrito(req.body);
@@ -34,8 +34,7 @@ export class CarritoService extends ClienteHelpers{
     public async getCarrito(req:Request, res: Response){
         const c: ICliente = await super.getCliente({_id: req.params.id});
 
-
-        Carrito.find({Cliente: c},(err:Error, carrito: IVehiculo[])=>{
+        Carrito.find({Cliente: c},(err:Error, carrito: MongooseDocument)=>{
             if(err){
                 res.status(401).send(err);
             }else{
@@ -43,5 +42,12 @@ export class CarritoService extends ClienteHelpers{
             }
             
         });
+    }
+
+    public async getPrecio(req:Request, res: Response){
+        const c: ICliente = await super.getCliente({_id: req.params.id});
+        const car: ICarrito[] = await super.getCarritos({Cliente: c});
+        const total: number = await super.getPrecVeh(car);
+        res.status(200).json({Precio: total});
     }
 }

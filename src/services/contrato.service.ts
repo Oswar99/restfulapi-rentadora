@@ -15,26 +15,20 @@ export class ContratoService extends ContratoHelpers{
 
     public async newOne(req: Request, res: Response){        
         const c = new Contrato(req.body);
-        const old_c:any = await super.getContrato({Contrato: c.Contrato});
-
         console.log(c);
         console.log(req.body);
 
-        if( old_c.length === 0){
-            await c.save((err:Error, Contrato: IContrato)=>{
-                if(err){
-                    res.status(401).send({successed:false, message: err.message});
-                }else{
-                    res.status(200).json( Contrato? {successed:true, Contrato: Contrato } : {successed:false} );
-                }            
-            });
-        }else{
-            res.status(200).json({successed:false, message: "Verifique que el Contrato no haya sido ingresado anteriormente."});
-        }  
+        await c.save((err:Error, Contrato: IContrato)=>{
+            if(err){
+                res.status(401).send({successed:false, message: err.message});
+            }else{
+                res.status(200).json( Contrato? {successed:true, Contrato: Contrato } : {successed:false} );
+            }            
+        });
     }
     
     public async deleteOne(req:Request, res:Response){
-        const con = await super.getContrato(req.params.id);
+        const con = await super.getContrato({_id: req.params.id});
         const nFac: number = con? await super.contratosPorFactura(con) : 0;
 
         if(con == undefined){

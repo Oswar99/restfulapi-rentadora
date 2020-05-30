@@ -13,6 +13,8 @@ export class CarritoController{
         
         this.app.route("/carrito/:id")
         .delete(this.carrito_service.deleteOne)
-        .get(this.carrito_service.getCarrito)
+        .get(this.carrito_service.getCarrito);
+
+        this.app.route("/carrito/valor/:id").get(this.carrito_service.getPrecio);
     }
 }

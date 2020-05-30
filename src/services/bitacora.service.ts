@@ -2,7 +2,6 @@ import {Request,Response} from "express";
 import {Bitacora, IBitacora} from "../models/bitacora.model";
 import {BitacoraHelpers} from "../helpers/bitacora.helpers";
 import {MongooseDocument} from "mongoose";
-import { IVehiculo } from "../models/vehiculo.model";
 
 export class BitacoraService extends BitacoraHelpers{
     public getAll(req: Request, res: Response){
